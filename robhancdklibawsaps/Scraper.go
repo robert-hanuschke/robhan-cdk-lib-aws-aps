@@ -217,17 +217,17 @@ func NewScraper_Override(s Scraper, scope constructs.Construct, id *string, prop
 	)
 }
 
-func Scraper_FrommScraperAttributes(scope constructs.Construct, id *string, attrs *ScraperAttributes) IScraper {
+func Scraper_FromScraperAttributes(scope constructs.Construct, id *string, attrs *ScraperAttributes) IScraper {
 	_init_.Initialize()
 
-	if err := validateScraper_FrommScraperAttributesParameters(scope, id, attrs); err != nil {
+	if err := validateScraper_FromScraperAttributesParameters(scope, id, attrs); err != nil {
 		panic(err)
 	}
 	var returns IScraper
 
 	_jsii_.StaticInvoke(
 		"@robhan-cdk-lib/aws_aps.Scraper",
-		"frommScraperAttributes",
+		"fromScraperAttributes",
 		[]interface{}{scope, id, attrs},
 		&returns,
 	)

@@ -50,7 +50,7 @@ func (w *jsiiProxy_Workspace) validateGetWorkspaceIdParameters(workspaceArn *str
 	return nil
 }
 
-func validateWorkspace_FrommWorkspaceAttributesParameters(scope constructs.Construct, id *string, attrs *WorkspaceAttributes) error {
+func validateWorkspace_FromWorkspaceAttributesParameters(scope constructs.Construct, id *string, attrs *WorkspaceAttributes) error {
 	if scope == nil {
 		return fmt.Errorf("parameter scope is required, but nil was provided")
 	}

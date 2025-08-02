@@ -20,7 +20,7 @@ func (w *jsiiProxy_Workspace) validateGetWorkspaceIdParameters(workspaceArn *str
 	return nil
 }
 
-func validateWorkspace_FrommWorkspaceAttributesParameters(scope constructs.Construct, id *string, attrs *WorkspaceAttributes) error {
+func validateWorkspace_FromWorkspaceAttributesParameters(scope constructs.Construct, id *string, attrs *WorkspaceAttributes) error {
 	return nil
 }
 

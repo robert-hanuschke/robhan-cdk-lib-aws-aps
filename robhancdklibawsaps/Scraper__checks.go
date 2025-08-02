@@ -50,7 +50,7 @@ func (s *jsiiProxy_Scraper) validateGetScraperIdParameters(scraperArn *string) e
 	return nil
 }
 
-func validateScraper_FrommScraperAttributesParameters(scope constructs.Construct, id *string, attrs *ScraperAttributes) error {
+func validateScraper_FromScraperAttributesParameters(scope constructs.Construct, id *string, attrs *ScraperAttributes) error {
 	if scope == nil {
 		return fmt.Errorf("parameter scope is required, but nil was provided")
 	}

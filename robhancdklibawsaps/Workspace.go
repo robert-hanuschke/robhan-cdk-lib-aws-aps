@@ -247,17 +247,17 @@ func NewWorkspace_Override(w Workspace, scope constructs.Construct, id *string, 
 	)
 }
 
-func Workspace_FrommWorkspaceAttributes(scope constructs.Construct, id *string, attrs *WorkspaceAttributes) IWorkspace {
+func Workspace_FromWorkspaceAttributes(scope constructs.Construct, id *string, attrs *WorkspaceAttributes) IWorkspace {
 	_init_.Initialize()
 
-	if err := validateWorkspace_FrommWorkspaceAttributesParameters(scope, id, attrs); err != nil {
+	if err := validateWorkspace_FromWorkspaceAttributesParameters(scope, id, attrs); err != nil {
 		panic(err)
 	}
 	var returns IWorkspace
 
 	_jsii_.StaticInvoke(
 		"@robhan-cdk-lib/aws_aps.Workspace",
-		"frommWorkspaceAttributes",
+		"fromWorkspaceAttributes",
 		[]interface{}{scope, id, attrs},
 		&returns,
 	)
