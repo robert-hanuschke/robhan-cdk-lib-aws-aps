@@ -1,9 +1,9 @@
 module github.com/robert-hanuschke/robhan-cdk-lib-aws-aps/robhancdklibawsaps
 
-go 1.18
+go 1.23
 
 require (
-	github.com/aws/jsii-runtime-go v1.112.0
+	github.com/aws/jsii-runtime-go v1.113.0
 	github.com/robert-hanuschke/robhan-cdk-lib-utils/robhancdklibutils v0.0.10
 	github.com/aws/aws-cdk-go/awscdk/v2 v2.201.0
 	github.com/aws/constructs-go/constructs/v10 v10.0.5
