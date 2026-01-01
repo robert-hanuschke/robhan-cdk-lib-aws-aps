@@ -12,6 +12,69 @@ func init() {
 		"@robhan-cdk-lib/aws_aps.AmpConfiguration",
 		reflect.TypeOf((*AmpConfiguration)(nil)).Elem(),
 	)
+	_jsii_.RegisterClass(
+		"@robhan-cdk-lib/aws_aps.AnomalyDetector",
+		reflect.TypeOf((*AnomalyDetector)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberProperty{JsiiProperty: "alias", GoGetter: "Alias"},
+			_jsii_.MemberProperty{JsiiProperty: "anomalyDetectorArn", GoGetter: "AnomalyDetectorArn"},
+			_jsii_.MemberMethod{JsiiMethod: "applyRemovalPolicy", GoMethod: "ApplyRemovalPolicy"},
+			_jsii_.MemberProperty{JsiiProperty: "configuration", GoGetter: "Configuration"},
+			_jsii_.MemberProperty{JsiiProperty: "env", GoGetter: "Env"},
+			_jsii_.MemberProperty{JsiiProperty: "evaluationIntervalInSeconds", GoGetter: "EvaluationIntervalInSeconds"},
+			_jsii_.MemberMethod{JsiiMethod: "generatePhysicalName", GoMethod: "GeneratePhysicalName"},
+			_jsii_.MemberMethod{JsiiMethod: "getResourceArnAttribute", GoMethod: "GetResourceArnAttribute"},
+			_jsii_.MemberMethod{JsiiMethod: "getResourceNameAttribute", GoMethod: "GetResourceNameAttribute"},
+			_jsii_.MemberProperty{JsiiProperty: "labels", GoGetter: "Labels"},
+			_jsii_.MemberProperty{JsiiProperty: "missingDataAction", GoGetter: "MissingDataAction"},
+			_jsii_.MemberProperty{JsiiProperty: "node", GoGetter: "Node"},
+			_jsii_.MemberProperty{JsiiProperty: "physicalName", GoGetter: "PhysicalName"},
+			_jsii_.MemberProperty{JsiiProperty: "stack", GoGetter: "Stack"},
+			_jsii_.MemberMethod{JsiiMethod: "toString", GoMethod: "ToString"},
+			_jsii_.MemberProperty{JsiiProperty: "workspace", GoGetter: "Workspace"},
+		},
+		func() interface{} {
+			j := jsiiProxy_AnomalyDetector{}
+			_jsii_.InitJsiiProxy(&j.jsiiProxy_AnomalyDetectorBase)
+			return &j
+		},
+	)
+	_jsii_.RegisterClass(
+		"@robhan-cdk-lib/aws_aps.AnomalyDetectorBase",
+		reflect.TypeOf((*AnomalyDetectorBase)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberProperty{JsiiProperty: "alias", GoGetter: "Alias"},
+			_jsii_.MemberProperty{JsiiProperty: "anomalyDetectorArn", GoGetter: "AnomalyDetectorArn"},
+			_jsii_.MemberMethod{JsiiMethod: "applyRemovalPolicy", GoMethod: "ApplyRemovalPolicy"},
+			_jsii_.MemberProperty{JsiiProperty: "configuration", GoGetter: "Configuration"},
+			_jsii_.MemberProperty{JsiiProperty: "env", GoGetter: "Env"},
+			_jsii_.MemberProperty{JsiiProperty: "evaluationIntervalInSeconds", GoGetter: "EvaluationIntervalInSeconds"},
+			_jsii_.MemberMethod{JsiiMethod: "generatePhysicalName", GoMethod: "GeneratePhysicalName"},
+			_jsii_.MemberMethod{JsiiMethod: "getResourceArnAttribute", GoMethod: "GetResourceArnAttribute"},
+			_jsii_.MemberMethod{JsiiMethod: "getResourceNameAttribute", GoMethod: "GetResourceNameAttribute"},
+			_jsii_.MemberProperty{JsiiProperty: "labels", GoGetter: "Labels"},
+			_jsii_.MemberProperty{JsiiProperty: "missingDataAction", GoGetter: "MissingDataAction"},
+			_jsii_.MemberProperty{JsiiProperty: "node", GoGetter: "Node"},
+			_jsii_.MemberProperty{JsiiProperty: "physicalName", GoGetter: "PhysicalName"},
+			_jsii_.MemberProperty{JsiiProperty: "stack", GoGetter: "Stack"},
+			_jsii_.MemberMethod{JsiiMethod: "toString", GoMethod: "ToString"},
+			_jsii_.MemberProperty{JsiiProperty: "workspace", GoGetter: "Workspace"},
+		},
+		func() interface{} {
+			j := jsiiProxy_AnomalyDetectorBase{}
+			_jsii_.InitJsiiProxy(&j.Type__awscdkResource)
+			_jsii_.InitJsiiProxy(&j.jsiiProxy_IAnomalyDetector)
+			return &j
+		},
+	)
+	_jsii_.RegisterStruct(
+		"@robhan-cdk-lib/aws_aps.AnomalyDetectorConfiguration",
+		reflect.TypeOf((*AnomalyDetectorConfiguration)(nil)).Elem(),
+	)
+	_jsii_.RegisterStruct(
+		"@robhan-cdk-lib/aws_aps.AnomalyDetectorProps",
+		reflect.TypeOf((*AnomalyDetectorProps)(nil)).Elem(),
+	)
 	_jsii_.RegisterStruct(
 		"@robhan-cdk-lib/aws_aps.CloudWatchLogDestination",
 		reflect.TypeOf((*CloudWatchLogDestination)(nil)).Elem(),
@@ -23,6 +86,45 @@ func init() {
 	_jsii_.RegisterStruct(
 		"@robhan-cdk-lib/aws_aps.EksConfiguration",
 		reflect.TypeOf((*EksConfiguration)(nil)).Elem(),
+	)
+	_jsii_.RegisterInterface(
+		"@robhan-cdk-lib/aws_aps.IAnomalyDetector",
+		reflect.TypeOf((*IAnomalyDetector)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberProperty{JsiiProperty: "alias", GoGetter: "Alias"},
+			_jsii_.MemberProperty{JsiiProperty: "anomalyDetectorArn", GoGetter: "AnomalyDetectorArn"},
+			_jsii_.MemberMethod{JsiiMethod: "applyRemovalPolicy", GoMethod: "ApplyRemovalPolicy"},
+			_jsii_.MemberProperty{JsiiProperty: "configuration", GoGetter: "Configuration"},
+			_jsii_.MemberProperty{JsiiProperty: "env", GoGetter: "Env"},
+			_jsii_.MemberProperty{JsiiProperty: "evaluationIntervalInSeconds", GoGetter: "EvaluationIntervalInSeconds"},
+			_jsii_.MemberProperty{JsiiProperty: "labels", GoGetter: "Labels"},
+			_jsii_.MemberProperty{JsiiProperty: "missingDataAction", GoGetter: "MissingDataAction"},
+			_jsii_.MemberProperty{JsiiProperty: "node", GoGetter: "Node"},
+			_jsii_.MemberProperty{JsiiProperty: "stack", GoGetter: "Stack"},
+			_jsii_.MemberProperty{JsiiProperty: "workspace", GoGetter: "Workspace"},
+		},
+		func() interface{} {
+			j := jsiiProxy_IAnomalyDetector{}
+			_jsii_.InitJsiiProxy(&j.Type__awscdkIResource)
+			return &j
+		},
+	)
+	_jsii_.RegisterInterface(
+		"@robhan-cdk-lib/aws_aps.IResourcePolicy",
+		reflect.TypeOf((*IResourcePolicy)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "applyRemovalPolicy", GoMethod: "ApplyRemovalPolicy"},
+			_jsii_.MemberProperty{JsiiProperty: "env", GoGetter: "Env"},
+			_jsii_.MemberProperty{JsiiProperty: "node", GoGetter: "Node"},
+			_jsii_.MemberProperty{JsiiProperty: "policyDocument", GoGetter: "PolicyDocument"},
+			_jsii_.MemberProperty{JsiiProperty: "stack", GoGetter: "Stack"},
+			_jsii_.MemberProperty{JsiiProperty: "workspace", GoGetter: "Workspace"},
+		},
+		func() interface{} {
+			j := jsiiProxy_IResourcePolicy{}
+			_jsii_.InitJsiiProxy(&j.Type__awscdkIResource)
+			return &j
+		},
 	)
 	_jsii_.RegisterInterface(
 		"@robhan-cdk-lib/aws_aps.IRuleGroupsNamespace",
@@ -89,6 +191,10 @@ func init() {
 		},
 	)
 	_jsii_.RegisterStruct(
+		"@robhan-cdk-lib/aws_aps.IgnoreNearExpected",
+		reflect.TypeOf((*IgnoreNearExpected)(nil)).Elem(),
+	)
+	_jsii_.RegisterStruct(
 		"@robhan-cdk-lib/aws_aps.Label",
 		reflect.TypeOf((*Label)(nil)).Elem(),
 	)
@@ -113,8 +219,65 @@ func init() {
 		reflect.TypeOf((*LoggingFilter)(nil)).Elem(),
 	)
 	_jsii_.RegisterStruct(
+		"@robhan-cdk-lib/aws_aps.MissingDataAction",
+		reflect.TypeOf((*MissingDataAction)(nil)).Elem(),
+	)
+	_jsii_.RegisterStruct(
 		"@robhan-cdk-lib/aws_aps.QueryLoggingConfiguration",
 		reflect.TypeOf((*QueryLoggingConfiguration)(nil)).Elem(),
+	)
+	_jsii_.RegisterStruct(
+		"@robhan-cdk-lib/aws_aps.RandomCutForestConfiguration",
+		reflect.TypeOf((*RandomCutForestConfiguration)(nil)).Elem(),
+	)
+	_jsii_.RegisterClass(
+		"@robhan-cdk-lib/aws_aps.ResourcePolicy",
+		reflect.TypeOf((*ResourcePolicy)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "applyRemovalPolicy", GoMethod: "ApplyRemovalPolicy"},
+			_jsii_.MemberProperty{JsiiProperty: "env", GoGetter: "Env"},
+			_jsii_.MemberMethod{JsiiMethod: "generatePhysicalName", GoMethod: "GeneratePhysicalName"},
+			_jsii_.MemberMethod{JsiiMethod: "getResourceArnAttribute", GoMethod: "GetResourceArnAttribute"},
+			_jsii_.MemberMethod{JsiiMethod: "getResourceNameAttribute", GoMethod: "GetResourceNameAttribute"},
+			_jsii_.MemberProperty{JsiiProperty: "node", GoGetter: "Node"},
+			_jsii_.MemberProperty{JsiiProperty: "physicalName", GoGetter: "PhysicalName"},
+			_jsii_.MemberProperty{JsiiProperty: "policyDocument", GoGetter: "PolicyDocument"},
+			_jsii_.MemberProperty{JsiiProperty: "stack", GoGetter: "Stack"},
+			_jsii_.MemberMethod{JsiiMethod: "toString", GoMethod: "ToString"},
+			_jsii_.MemberProperty{JsiiProperty: "workspace", GoGetter: "Workspace"},
+		},
+		func() interface{} {
+			j := jsiiProxy_ResourcePolicy{}
+			_jsii_.InitJsiiProxy(&j.jsiiProxy_ResourcePolicyBase)
+			return &j
+		},
+	)
+	_jsii_.RegisterClass(
+		"@robhan-cdk-lib/aws_aps.ResourcePolicyBase",
+		reflect.TypeOf((*ResourcePolicyBase)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberMethod{JsiiMethod: "applyRemovalPolicy", GoMethod: "ApplyRemovalPolicy"},
+			_jsii_.MemberProperty{JsiiProperty: "env", GoGetter: "Env"},
+			_jsii_.MemberMethod{JsiiMethod: "generatePhysicalName", GoMethod: "GeneratePhysicalName"},
+			_jsii_.MemberMethod{JsiiMethod: "getResourceArnAttribute", GoMethod: "GetResourceArnAttribute"},
+			_jsii_.MemberMethod{JsiiMethod: "getResourceNameAttribute", GoMethod: "GetResourceNameAttribute"},
+			_jsii_.MemberProperty{JsiiProperty: "node", GoGetter: "Node"},
+			_jsii_.MemberProperty{JsiiProperty: "physicalName", GoGetter: "PhysicalName"},
+			_jsii_.MemberProperty{JsiiProperty: "policyDocument", GoGetter: "PolicyDocument"},
+			_jsii_.MemberProperty{JsiiProperty: "stack", GoGetter: "Stack"},
+			_jsii_.MemberMethod{JsiiMethod: "toString", GoMethod: "ToString"},
+			_jsii_.MemberProperty{JsiiProperty: "workspace", GoGetter: "Workspace"},
+		},
+		func() interface{} {
+			j := jsiiProxy_ResourcePolicyBase{}
+			_jsii_.InitJsiiProxy(&j.Type__awscdkResource)
+			_jsii_.InitJsiiProxy(&j.jsiiProxy_IResourcePolicy)
+			return &j
+		},
+	)
+	_jsii_.RegisterStruct(
+		"@robhan-cdk-lib/aws_aps.ResourcePolicyProps",
+		reflect.TypeOf((*ResourcePolicyProps)(nil)).Elem(),
 	)
 	_jsii_.RegisterStruct(
 		"@robhan-cdk-lib/aws_aps.RoleConfiguration",
