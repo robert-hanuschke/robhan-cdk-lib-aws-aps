@@ -11,6 +11,14 @@ import (
 	"github.com/aws/constructs-go/constructs/v10"
 )
 
+func (r *jsiiProxy_ResourcePolicy) validateApplyCrossStackReferenceStrengthParameters(strength awscdk.ReferenceStrength) error {
+	if strength == "" {
+		return fmt.Errorf("parameter strength is required, but nil was provided")
+	}
+
+	return nil
+}
+
 func (r *jsiiProxy_ResourcePolicy) validateApplyRemovalPolicyParameters(policy awscdk.RemovalPolicy) error {
 	if policy == "" {
 		return fmt.Errorf("parameter policy is required, but nil was provided")
@@ -42,6 +50,22 @@ func (r *jsiiProxy_ResourcePolicy) validateGetResourceNameAttributeParameters(na
 	return nil
 }
 
+func validateResourcePolicy_FromWorkspaceArnParameters(scope constructs.Construct, id *string, workspaceArn *string) error {
+	if scope == nil {
+		return fmt.Errorf("parameter scope is required, but nil was provided")
+	}
+
+	if id == nil {
+		return fmt.Errorf("parameter id is required, but nil was provided")
+	}
+
+	if workspaceArn == nil {
+		return fmt.Errorf("parameter workspaceArn is required, but nil was provided")
+	}
+
+	return nil
+}
+
 func validateResourcePolicy_IsConstructParameters(x interface{}) error {
 	if x == nil {
 		return fmt.Errorf("parameter x is required, but nil was provided")
@@ -61,14 +85,6 @@ func validateResourcePolicy_IsOwnedResourceParameters(construct constructs.ICons
 func validateResourcePolicy_IsResourceParameters(construct constructs.IConstruct) error {
 	if construct == nil {
 		return fmt.Errorf("parameter construct is required, but nil was provided")
-	}
-
-	return nil
-}
-
-func validateResourcePolicy_IsResourcePolicyParameters(x interface{}) error {
-	if x == nil {
-		return fmt.Errorf("parameter x is required, but nil was provided")
 	}
 
 	return nil

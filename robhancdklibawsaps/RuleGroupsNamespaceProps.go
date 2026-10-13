@@ -1,15 +1,20 @@
 package robhancdklibawsaps
 
+import (
+	"github.com/aws/aws-cdk-go/awscdk/v2/interfaces/interfacesawsaps"
+)
 
-// Properties for creating a rule groups namespace in an Amazon Managed Service for Prometheus workspace.
+// Properties for an Amazon Managed Service for Prometheus rule groups namespace.
 type RuleGroupsNamespaceProps struct {
-	// The rules file used in the namespace.
+	// The Prometheus rules file as YAML.
 	Data *string `field:"required" json:"data" yaml:"data"`
 	// The name of the rule groups namespace.
-	//
-	// Between 1 and 64 characters.
 	Name *string `field:"required" json:"name" yaml:"name"`
-	// The workspace to add the rule groups namespace.
-	Workspace IWorkspace `field:"required" json:"workspace" yaml:"workspace"`
+	// The workspace that contains the rule groups namespace.
+	Workspace interfacesawsaps.IWorkspaceRef `field:"required" json:"workspace" yaml:"workspace"`
+	// Tags to apply to the rule groups namespace.
+	// Default: - no tags.
+	//
+	Tags *map[string]*string `field:"optional" json:"tags" yaml:"tags"`
 }
 

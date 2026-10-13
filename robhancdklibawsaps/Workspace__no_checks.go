@@ -4,6 +4,10 @@ package robhancdklibawsaps
 
 // Building without runtime type checking enabled, so all the below just return nil
 
+func (w *jsiiProxy_Workspace) validateApplyCrossStackReferenceStrengthParameters(strength awscdk.ReferenceStrength) error {
+	return nil
+}
+
 func (w *jsiiProxy_Workspace) validateApplyRemovalPolicyParameters(policy awscdk.RemovalPolicy) error {
 	return nil
 }
@@ -16,7 +20,15 @@ func (w *jsiiProxy_Workspace) validateGetResourceNameAttributeParameters(nameAtt
 	return nil
 }
 
-func (w *jsiiProxy_Workspace) validateGetWorkspaceIdParameters(workspaceArn *string) error {
+func (w *jsiiProxy_Workspace) validatePrometheusEndpointFromArnParameters(workspaceArn *string) error {
+	return nil
+}
+
+func (w *jsiiProxy_Workspace) validateWorkspaceIdFromArnParameters(workspaceArn *string) error {
+	return nil
+}
+
+func validateWorkspace_FromWorkspaceArnParameters(scope constructs.Construct, id *string, workspaceArn *string) error {
 	return nil
 }
 
@@ -33,10 +45,6 @@ func validateWorkspace_IsOwnedResourceParameters(construct constructs.IConstruct
 }
 
 func validateWorkspace_IsResourceParameters(construct constructs.IConstruct) error {
-	return nil
-}
-
-func validateWorkspace_IsWorkspaceParameters(x interface{}) error {
 	return nil
 }
 

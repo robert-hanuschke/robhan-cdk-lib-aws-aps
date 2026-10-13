@@ -5,20 +5,16 @@ import (
 	_init_ "github.com/robert-hanuschke/robhan-cdk-lib-aws-aps/robhancdklibawsaps/jsii"
 
 	"github.com/aws/aws-cdk-go/awscdk/v2"
-	"github.com/aws/aws-cdk-go/awscdk/v2/awskms"
 	"github.com/aws/aws-cdk-go/awscdk/v2/interfaces"
+	"github.com/aws/aws-cdk-go/awscdk/v2/interfaces/interfacesawsaps"
 	"github.com/aws/constructs-go/constructs/v10"
+	"github.com/robert-hanuschke/robhan-cdk-lib-aws-aps/robhancdklibawsaps/internal"
 )
 
+// An Amazon Managed Service for Prometheus workspace.
 type Workspace interface {
-	WorkspaceBase
-	// The alert manager definition, a YAML configuration for the alert manager in your Amazon Managed Service for Prometheus workspace.
-	AlertManagerDefinition() *string
-	// The alias that is assigned to this workspace to help identify it.
-	//
-	// It does not need to be
-	// unique.
-	Alias() *string
+	awscdk.Resource
+	IWorkspace
 	// The environment this resource belongs to.
 	//
 	// For resources that are created and managed in a Stack (those created by
@@ -29,12 +25,6 @@ type Workspace interface {
 	// `Role.fromRoleArn()`, `Bucket.fromBucketName()`, etc.), they might be
 	// different than the stack they were imported into.
 	Env() *interfaces.ResourceEnvironment
-	// The customer managed AWS KMS key to use for encrypting data within your workspace.
-	KmsKey() awskms.IKey
-	// Contains information about the current rules and alerting logging configuration for the workspace.
-	//
-	// Note: These logging configurations are only for rules and alerting logs.
-	LoggingConfiguration() *LoggingConfiguration
 	// The tree node.
 	Node() constructs.Node
 	// Returns a string-encoded token that resolves to the physical name that should be passed to the CloudFormation resource.
@@ -45,18 +35,24 @@ type Workspace interface {
 	// - a concrete name generated automatically during synthesis, in
 	//   cross-environment scenarios.
 	PhysicalName() *string
-	// The Prometheus endpoint available for this workspace..
+	// The Prometheus-compatible query endpoint for the workspace.
 	PrometheusEndpoint() *string
-	// The definition of logging configuration in an Amazon Managed Service for Prometheus workspace.
-	QueryLoggingConfiguration() *QueryLoggingConfiguration
 	// The stack in which this resource is defined.
 	Stack() awscdk.Stack
 	// The ARN of the workspace.
 	WorkspaceArn() *string
-	// Use this structure to define label sets and the ingestion limits for time series that match label sets, and to specify the retention period of the workspace.
-	WorkspaceConfiguration() *WorkspaceConfiguration
-	// The unique ID for the workspace.
+	// The unique ID of the workspace.
 	WorkspaceId() *string
+	// A reference to a Workspace resource.
+	WorkspaceRef() *interfacesawsaps.WorkspaceReference
+	// Override the cross-stack reference strength for this resource.
+	//
+	// When set, any cross-stack reference to this resource will use the specified
+	// mechanism instead of the global default determined by the
+	// `@aws-cdk/core:defaultCrossStackReferences` context key. This is useful for
+	// selectively weakening specific references to avoid the "deadly embrace" problem
+	// without changing the app-wide default.
+	ApplyCrossStackReferenceStrength(strength awscdk.ReferenceStrength)
 	// Apply the given removal policy to this resource.
 	//
 	// The Removal Policy controls what happens to this resource when it stops
@@ -81,7 +77,7 @@ type Workspace interface {
 	// referenced across environments, it will be resolved to `this.physicalName`,
 	// which will be a concrete name.
 	GetResourceNameAttribute(nameAttr *string) *string
-	GetWorkspaceId(workspaceArn *string) *string
+	PrometheusEndpointFromArn(workspaceArn *string) *string
 	// Returns a string representation of this construct.
 	ToString() *string
 	// Applies one or more mixins to this construct.
@@ -91,31 +87,13 @@ type Workspace interface {
 	// Use multiple `with()` calls if subsequent mixins should apply to added
 	// constructs.
 	With(mixins ...constructs.IMixin) constructs.IConstruct
+	WorkspaceIdFromArn(workspaceArn *string) *string
 }
 
 // The jsii proxy struct for Workspace
 type jsiiProxy_Workspace struct {
-	jsiiProxy_WorkspaceBase
-}
-
-func (j *jsiiProxy_Workspace) AlertManagerDefinition() *string {
-	var returns *string
-	_jsii_.Get(
-		j,
-		"alertManagerDefinition",
-		&returns,
-	)
-	return returns
-}
-
-func (j *jsiiProxy_Workspace) Alias() *string {
-	var returns *string
-	_jsii_.Get(
-		j,
-		"alias",
-		&returns,
-	)
-	return returns
+	internal.Type__awscdkResource
+	jsiiProxy_IWorkspace
 }
 
 func (j *jsiiProxy_Workspace) Env() *interfaces.ResourceEnvironment {
@@ -123,26 +101,6 @@ func (j *jsiiProxy_Workspace) Env() *interfaces.ResourceEnvironment {
 	_jsii_.Get(
 		j,
 		"env",
-		&returns,
-	)
-	return returns
-}
-
-func (j *jsiiProxy_Workspace) KmsKey() awskms.IKey {
-	var returns awskms.IKey
-	_jsii_.Get(
-		j,
-		"kmsKey",
-		&returns,
-	)
-	return returns
-}
-
-func (j *jsiiProxy_Workspace) LoggingConfiguration() *LoggingConfiguration {
-	var returns *LoggingConfiguration
-	_jsii_.Get(
-		j,
-		"loggingConfiguration",
 		&returns,
 	)
 	return returns
@@ -178,16 +136,6 @@ func (j *jsiiProxy_Workspace) PrometheusEndpoint() *string {
 	return returns
 }
 
-func (j *jsiiProxy_Workspace) QueryLoggingConfiguration() *QueryLoggingConfiguration {
-	var returns *QueryLoggingConfiguration
-	_jsii_.Get(
-		j,
-		"queryLoggingConfiguration",
-		&returns,
-	)
-	return returns
-}
-
 func (j *jsiiProxy_Workspace) Stack() awscdk.Stack {
 	var returns awscdk.Stack
 	_jsii_.Get(
@@ -208,21 +156,21 @@ func (j *jsiiProxy_Workspace) WorkspaceArn() *string {
 	return returns
 }
 
-func (j *jsiiProxy_Workspace) WorkspaceConfiguration() *WorkspaceConfiguration {
-	var returns *WorkspaceConfiguration
-	_jsii_.Get(
-		j,
-		"workspaceConfiguration",
-		&returns,
-	)
-	return returns
-}
-
 func (j *jsiiProxy_Workspace) WorkspaceId() *string {
 	var returns *string
 	_jsii_.Get(
 		j,
 		"workspaceId",
+		&returns,
+	)
+	return returns
+}
+
+func (j *jsiiProxy_Workspace) WorkspaceRef() *interfacesawsaps.WorkspaceReference {
+	var returns *interfacesawsaps.WorkspaceReference
+	_jsii_.Get(
+		j,
+		"workspaceRef",
 		&returns,
 	)
 	return returns
@@ -256,6 +204,26 @@ func NewWorkspace_Override(w Workspace, scope constructs.Construct, id *string, 
 	)
 }
 
+// Reference an existing workspace by ARN.
+func Workspace_FromWorkspaceArn(scope constructs.Construct, id *string, workspaceArn *string) IWorkspace {
+	_init_.Initialize()
+
+	if err := validateWorkspace_FromWorkspaceArnParameters(scope, id, workspaceArn); err != nil {
+		panic(err)
+	}
+	var returns IWorkspace
+
+	_jsii_.StaticInvoke(
+		"@robhan-cdk-lib/aws_aps.Workspace",
+		"fromWorkspaceArn",
+		[]interface{}{scope, id, workspaceArn},
+		&returns,
+	)
+
+	return returns
+}
+
+// Reference an existing workspace from its attributes.
 func Workspace_FromWorkspaceAttributes(scope constructs.Construct, id *string, attrs *WorkspaceAttributes) IWorkspace {
 	_init_.Initialize()
 
@@ -347,22 +315,15 @@ func Workspace_IsResource(construct constructs.IConstruct) *bool {
 	return returns
 }
 
-func Workspace_IsWorkspace(x interface{}) *bool {
-	_init_.Initialize()
-
-	if err := validateWorkspace_IsWorkspaceParameters(x); err != nil {
+func (w *jsiiProxy_Workspace) ApplyCrossStackReferenceStrength(strength awscdk.ReferenceStrength) {
+	if err := w.validateApplyCrossStackReferenceStrengthParameters(strength); err != nil {
 		panic(err)
 	}
-	var returns *bool
-
-	_jsii_.StaticInvoke(
-		"@robhan-cdk-lib/aws_aps.Workspace",
-		"isWorkspace",
-		[]interface{}{x},
-		&returns,
+	_jsii_.InvokeVoid(
+		w,
+		"applyCrossStackReferenceStrength",
+		[]interface{}{strength},
 	)
-
-	return returns
 }
 
 func (w *jsiiProxy_Workspace) ApplyRemovalPolicy(policy awscdk.RemovalPolicy) {
@@ -421,15 +382,15 @@ func (w *jsiiProxy_Workspace) GetResourceNameAttribute(nameAttr *string) *string
 	return returns
 }
 
-func (w *jsiiProxy_Workspace) GetWorkspaceId(workspaceArn *string) *string {
-	if err := w.validateGetWorkspaceIdParameters(workspaceArn); err != nil {
+func (w *jsiiProxy_Workspace) PrometheusEndpointFromArn(workspaceArn *string) *string {
+	if err := w.validatePrometheusEndpointFromArnParameters(workspaceArn); err != nil {
 		panic(err)
 	}
 	var returns *string
 
 	_jsii_.Invoke(
 		w,
-		"getWorkspaceId",
+		"prometheusEndpointFromArn",
 		[]interface{}{workspaceArn},
 		&returns,
 	)
@@ -462,6 +423,22 @@ func (w *jsiiProxy_Workspace) With(mixins ...constructs.IMixin) constructs.ICons
 		w,
 		"with",
 		args,
+		&returns,
+	)
+
+	return returns
+}
+
+func (w *jsiiProxy_Workspace) WorkspaceIdFromArn(workspaceArn *string) *string {
+	if err := w.validateWorkspaceIdFromArnParameters(workspaceArn); err != nil {
+		panic(err)
+	}
+	var returns *string
+
+	_jsii_.Invoke(
+		w,
+		"workspaceIdFromArn",
+		[]interface{}{workspaceArn},
 		&returns,
 	)
 

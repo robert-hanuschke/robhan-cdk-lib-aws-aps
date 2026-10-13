@@ -1,11 +1,13 @@
 package robhancdklibawsaps
 
 
-// Specifies the action to take when data is missing during anomaly detection evaluation.
-type MissingDataAction struct {
-	// Marks missing data points as anomalies.
-	MarkAsAnomaly *bool `field:"optional" json:"markAsAnomaly" yaml:"markAsAnomaly"`
-	// Skips evaluation when data is missing.
-	Skip *bool `field:"optional" json:"skip" yaml:"skip"`
-}
+// The action to take when evaluation data is missing.
+type MissingDataAction string
+
+const (
+	// Treat the missing data point as anomalous.
+	MissingDataAction_MARK_AS_ANOMALY MissingDataAction = "MARK_AS_ANOMALY"
+	// Skip evaluation for the missing data point.
+	MissingDataAction_SKIP MissingDataAction = "SKIP"
+)
 

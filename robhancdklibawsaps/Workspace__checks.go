@@ -11,6 +11,14 @@ import (
 	"github.com/aws/constructs-go/constructs/v10"
 )
 
+func (w *jsiiProxy_Workspace) validateApplyCrossStackReferenceStrengthParameters(strength awscdk.ReferenceStrength) error {
+	if strength == "" {
+		return fmt.Errorf("parameter strength is required, but nil was provided")
+	}
+
+	return nil
+}
+
 func (w *jsiiProxy_Workspace) validateApplyRemovalPolicyParameters(policy awscdk.RemovalPolicy) error {
 	if policy == "" {
 		return fmt.Errorf("parameter policy is required, but nil was provided")
@@ -42,7 +50,31 @@ func (w *jsiiProxy_Workspace) validateGetResourceNameAttributeParameters(nameAtt
 	return nil
 }
 
-func (w *jsiiProxy_Workspace) validateGetWorkspaceIdParameters(workspaceArn *string) error {
+func (w *jsiiProxy_Workspace) validatePrometheusEndpointFromArnParameters(workspaceArn *string) error {
+	if workspaceArn == nil {
+		return fmt.Errorf("parameter workspaceArn is required, but nil was provided")
+	}
+
+	return nil
+}
+
+func (w *jsiiProxy_Workspace) validateWorkspaceIdFromArnParameters(workspaceArn *string) error {
+	if workspaceArn == nil {
+		return fmt.Errorf("parameter workspaceArn is required, but nil was provided")
+	}
+
+	return nil
+}
+
+func validateWorkspace_FromWorkspaceArnParameters(scope constructs.Construct, id *string, workspaceArn *string) error {
+	if scope == nil {
+		return fmt.Errorf("parameter scope is required, but nil was provided")
+	}
+
+	if id == nil {
+		return fmt.Errorf("parameter id is required, but nil was provided")
+	}
+
 	if workspaceArn == nil {
 		return fmt.Errorf("parameter workspaceArn is required, but nil was provided")
 	}
@@ -93,14 +125,6 @@ func validateWorkspace_IsResourceParameters(construct constructs.IConstruct) err
 	return nil
 }
 
-func validateWorkspace_IsWorkspaceParameters(x interface{}) error {
-	if x == nil {
-		return fmt.Errorf("parameter x is required, but nil was provided")
-	}
-
-	return nil
-}
-
 func validateNewWorkspaceParameters(scope constructs.Construct, id *string, props *WorkspaceProps) error {
 	if scope == nil {
 		return fmt.Errorf("parameter scope is required, but nil was provided")
@@ -110,9 +134,6 @@ func validateNewWorkspaceParameters(scope constructs.Construct, id *string, prop
 		return fmt.Errorf("parameter id is required, but nil was provided")
 	}
 
-	if props == nil {
-		return fmt.Errorf("parameter props is required, but nil was provided")
-	}
 	if err := _jsii_.ValidateStruct(props, func() string { return "parameter props" }); err != nil {
 		return err
 	}

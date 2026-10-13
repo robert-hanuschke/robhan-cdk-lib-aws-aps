@@ -4,6 +4,10 @@ package robhancdklibawsaps
 
 // Building without runtime type checking enabled, so all the below just return nil
 
+func (r *jsiiProxy_RuleGroupsNamespace) validateApplyCrossStackReferenceStrengthParameters(strength awscdk.ReferenceStrength) error {
+	return nil
+}
+
 func (r *jsiiProxy_RuleGroupsNamespace) validateApplyRemovalPolicyParameters(policy awscdk.RemovalPolicy) error {
 	return nil
 }
@@ -16,7 +20,7 @@ func (r *jsiiProxy_RuleGroupsNamespace) validateGetResourceNameAttributeParamete
 	return nil
 }
 
-func validateRuleGroupsNamespace_FromRuleGroupsNamespaceAttributesParameters(scope constructs.Construct, id *string, attrs *RuleGroupsNamespaceAttributes) error {
+func validateRuleGroupsNamespace_FromRuleGroupsNamespaceArnParameters(scope constructs.Construct, id *string, ruleGroupsNamespaceArn *string) error {
 	return nil
 }
 
@@ -29,10 +33,6 @@ func validateRuleGroupsNamespace_IsOwnedResourceParameters(construct constructs.
 }
 
 func validateRuleGroupsNamespace_IsResourceParameters(construct constructs.IConstruct) error {
-	return nil
-}
-
-func validateRuleGroupsNamespace_IsRuleGroupsNamespaceParameters(x interface{}) error {
 	return nil
 }
 

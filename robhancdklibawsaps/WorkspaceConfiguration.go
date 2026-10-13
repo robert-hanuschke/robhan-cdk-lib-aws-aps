@@ -1,18 +1,23 @@
 package robhancdklibawsaps
 
 
-// Use this structure to define label sets and the ingestion limits for time series that match label sets, and to specify the retention period of the workspace.
+// Workspace-level retention, query, and ingestion settings.
 type WorkspaceConfiguration struct {
-	// This is an array of structures, where each structure defines a label set for the workspace, and defines the ingestion limit for active time series for each of those label sets.
+	// Label sets with individual active-series limits.
+	// Default: - no label-set-specific limits.
 	//
-	// Each
-	// label name in a label set must be unique.
+	LabelSets *[]*WorkspaceLabelSet `field:"optional" json:"labelSets" yaml:"labelSets"`
+	// The time window, in seconds, during which out-of-order samples are accepted.
+	// Default: - the service default.
 	//
-	// Minimum 0.
-	LimitsPerLabelSets *[]*LimitsPerLabelSet `field:"optional" json:"limitsPerLabelSets" yaml:"limitsPerLabelSets"`
-	// Specifies how many days that metrics will be retained in the workspace.
+	OutOfOrderTimeWindowInSeconds *float64 `field:"optional" json:"outOfOrderTimeWindowInSeconds" yaml:"outOfOrderTimeWindowInSeconds"`
+	// The number of days to retain metrics.
+	// Default: - the service default.
 	//
-	// Minimum 1.
 	RetentionPeriodInDays *float64 `field:"optional" json:"retentionPeriodInDays" yaml:"retentionPeriodInDays"`
+	// The duration, in seconds, by which rule evaluation queries are offset into the past.
+	// Default: - the service default.
+	//
+	RuleQueryOffsetInSeconds *float64 `field:"optional" json:"ruleQueryOffsetInSeconds" yaml:"ruleQueryOffsetInSeconds"`
 }
 

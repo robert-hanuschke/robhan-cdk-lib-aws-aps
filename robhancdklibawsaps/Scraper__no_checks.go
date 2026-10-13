@@ -4,6 +4,10 @@ package robhancdklibawsaps
 
 // Building without runtime type checking enabled, so all the below just return nil
 
+func (s *jsiiProxy_Scraper) validateApplyCrossStackReferenceStrengthParameters(strength awscdk.ReferenceStrength) error {
+	return nil
+}
+
 func (s *jsiiProxy_Scraper) validateApplyRemovalPolicyParameters(policy awscdk.RemovalPolicy) error {
 	return nil
 }
@@ -16,11 +20,11 @@ func (s *jsiiProxy_Scraper) validateGetResourceNameAttributeParameters(nameAttr 
 	return nil
 }
 
-func (s *jsiiProxy_Scraper) validateGetScraperIdParameters(scraperArn *string) error {
+func (s *jsiiProxy_Scraper) validateScraperIdFromArnParameters(scraperArn *string) error {
 	return nil
 }
 
-func validateScraper_FromScraperAttributesParameters(scope constructs.Construct, id *string, attrs *ScraperAttributes) error {
+func validateScraper_FromScraperArnParameters(scope constructs.Construct, id *string, scraperArn *string) error {
 	return nil
 }
 
@@ -33,10 +37,6 @@ func validateScraper_IsOwnedResourceParameters(construct constructs.IConstruct) 
 }
 
 func validateScraper_IsResourceParameters(construct constructs.IConstruct) error {
-	return nil
-}
-
-func validateScraper_IsScraperParameters(x interface{}) error {
 	return nil
 }
 

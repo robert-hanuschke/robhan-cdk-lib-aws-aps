@@ -11,6 +11,14 @@ import (
 	"github.com/aws/constructs-go/constructs/v10"
 )
 
+func (s *jsiiProxy_Scraper) validateApplyCrossStackReferenceStrengthParameters(strength awscdk.ReferenceStrength) error {
+	if strength == "" {
+		return fmt.Errorf("parameter strength is required, but nil was provided")
+	}
+
+	return nil
+}
+
 func (s *jsiiProxy_Scraper) validateApplyRemovalPolicyParameters(policy awscdk.RemovalPolicy) error {
 	if policy == "" {
 		return fmt.Errorf("parameter policy is required, but nil was provided")
@@ -42,7 +50,7 @@ func (s *jsiiProxy_Scraper) validateGetResourceNameAttributeParameters(nameAttr 
 	return nil
 }
 
-func (s *jsiiProxy_Scraper) validateGetScraperIdParameters(scraperArn *string) error {
+func (s *jsiiProxy_Scraper) validateScraperIdFromArnParameters(scraperArn *string) error {
 	if scraperArn == nil {
 		return fmt.Errorf("parameter scraperArn is required, but nil was provided")
 	}
@@ -50,7 +58,7 @@ func (s *jsiiProxy_Scraper) validateGetScraperIdParameters(scraperArn *string) e
 	return nil
 }
 
-func validateScraper_FromScraperAttributesParameters(scope constructs.Construct, id *string, attrs *ScraperAttributes) error {
+func validateScraper_FromScraperArnParameters(scope constructs.Construct, id *string, scraperArn *string) error {
 	if scope == nil {
 		return fmt.Errorf("parameter scope is required, but nil was provided")
 	}
@@ -59,11 +67,8 @@ func validateScraper_FromScraperAttributesParameters(scope constructs.Construct,
 		return fmt.Errorf("parameter id is required, but nil was provided")
 	}
 
-	if attrs == nil {
-		return fmt.Errorf("parameter attrs is required, but nil was provided")
-	}
-	if err := _jsii_.ValidateStruct(attrs, func() string { return "parameter attrs" }); err != nil {
-		return err
+	if scraperArn == nil {
+		return fmt.Errorf("parameter scraperArn is required, but nil was provided")
 	}
 
 	return nil
@@ -88,14 +93,6 @@ func validateScraper_IsOwnedResourceParameters(construct constructs.IConstruct) 
 func validateScraper_IsResourceParameters(construct constructs.IConstruct) error {
 	if construct == nil {
 		return fmt.Errorf("parameter construct is required, but nil was provided")
-	}
-
-	return nil
-}
-
-func validateScraper_IsScraperParameters(x interface{}) error {
-	if x == nil {
-		return fmt.Errorf("parameter x is required, but nil was provided")
 	}
 
 	return nil

@@ -4,49 +4,52 @@ import (
 	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 
 	"github.com/aws/aws-cdk-go/awscdk/v2"
+	"github.com/aws/aws-cdk-go/awscdk/v2/interfaces"
+	"github.com/aws/aws-cdk-go/awscdk/v2/interfaces/interfacesawsaps"
+	"github.com/aws/constructs-go/constructs/v10"
 	"github.com/robert-hanuschke/robhan-cdk-lib-aws-aps/robhancdklibawsaps/internal"
 )
 
+// An Amazon Managed Service for Prometheus anomaly detector.
 type IAnomalyDetector interface {
+	interfacesawsaps.IAnomalyDetectorRef
 	awscdk.IResource
-	// The user-friendly name of the anomaly detector. 1 to 128 characters length.
-	//
-	// Minimum length of 1. Maximum length of 64.
-	// Pattern: [0-9A-Za-z][-.0-9A-Z_a-z]*
-	Alias() *string
-	// The Amazon Resource Name (ARN) of the anomaly detector.
+	// The ARN of the anomaly detector.
 	AnomalyDetectorArn() *string
-	// The algorithm configuration of the anomaly detector.
-	Configuration() *AnomalyDetectorConfiguration
-	// The frequency, in seconds, at which the anomaly detector evaluates metrics.
-	//
-	// Minimum value of 30. Maximum value of 86400.
-	EvaluationIntervalInSeconds() *float64
-	// The Amazon Managed Service for Prometheus metric labels associated with the anomaly detector.
-	//
-	// Map Entries: Minimum number of 0 items. Maximum number of 140 items.
-	// Key Length Constraints: Minimum length of 1. Maximum length of 7168.
-	// Key Pattern: (?!__)[a-zA-Z_][a-zA-Z0-9_]*
-	// Value Length Constraints: Minimum length of 1. Maximum length of 7168.
-	Labels() *[]*Label
-	// The action taken when data is missing during evaluation.
-	MissingDataAction() *MissingDataAction
-	// An Amazon Managed Service for Prometheus workspace is a logical and isolated Prometheus server dedicated to ingesting, storing, and querying your Prometheus-compatible metrics.
-	Workspace() IWorkspace
 }
 
 // The jsii proxy for IAnomalyDetector
 type jsiiProxy_IAnomalyDetector struct {
+	internal.Type__interfacesawsapsIAnomalyDetectorRef
 	internal.Type__awscdkIResource
 }
 
-func (j *jsiiProxy_IAnomalyDetector) Alias() *string {
-	var returns *string
-	_jsii_.Get(
-		j,
-		"alias",
+func (i *jsiiProxy_IAnomalyDetector) ApplyRemovalPolicy(policy awscdk.RemovalPolicy) {
+	if err := i.validateApplyRemovalPolicyParameters(policy); err != nil {
+		panic(err)
+	}
+	_jsii_.InvokeVoid(
+		i,
+		"applyRemovalPolicy",
+		[]interface{}{policy},
+	)
+}
+
+func (i *jsiiProxy_IAnomalyDetector) With(mixins ...constructs.IMixin) constructs.IConstruct {
+	args := []interface{}{}
+	for _, a := range mixins {
+		args = append(args, a)
+	}
+
+	var returns constructs.IConstruct
+
+	_jsii_.Invoke(
+		i,
+		"with",
+		args,
 		&returns,
 	)
+
 	return returns
 }
 
@@ -60,51 +63,41 @@ func (j *jsiiProxy_IAnomalyDetector) AnomalyDetectorArn() *string {
 	return returns
 }
 
-func (j *jsiiProxy_IAnomalyDetector) Configuration() *AnomalyDetectorConfiguration {
-	var returns *AnomalyDetectorConfiguration
+func (j *jsiiProxy_IAnomalyDetector) AnomalyDetectorRef() *interfacesawsaps.AnomalyDetectorReference {
+	var returns *interfacesawsaps.AnomalyDetectorReference
 	_jsii_.Get(
 		j,
-		"configuration",
+		"anomalyDetectorRef",
 		&returns,
 	)
 	return returns
 }
 
-func (j *jsiiProxy_IAnomalyDetector) EvaluationIntervalInSeconds() *float64 {
-	var returns *float64
+func (j *jsiiProxy_IAnomalyDetector) Env() *interfaces.ResourceEnvironment {
+	var returns *interfaces.ResourceEnvironment
 	_jsii_.Get(
 		j,
-		"evaluationIntervalInSeconds",
+		"env",
 		&returns,
 	)
 	return returns
 }
 
-func (j *jsiiProxy_IAnomalyDetector) Labels() *[]*Label {
-	var returns *[]*Label
+func (j *jsiiProxy_IAnomalyDetector) Node() constructs.Node {
+	var returns constructs.Node
 	_jsii_.Get(
 		j,
-		"labels",
+		"node",
 		&returns,
 	)
 	return returns
 }
 
-func (j *jsiiProxy_IAnomalyDetector) MissingDataAction() *MissingDataAction {
-	var returns *MissingDataAction
+func (j *jsiiProxy_IAnomalyDetector) Stack() awscdk.Stack {
+	var returns awscdk.Stack
 	_jsii_.Get(
 		j,
-		"missingDataAction",
-		&returns,
-	)
-	return returns
-}
-
-func (j *jsiiProxy_IAnomalyDetector) Workspace() IWorkspace {
-	var returns IWorkspace
-	_jsii_.Get(
-		j,
-		"workspace",
+		"stack",
 		&returns,
 	)
 	return returns

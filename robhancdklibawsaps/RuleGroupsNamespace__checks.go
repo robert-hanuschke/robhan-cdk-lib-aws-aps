@@ -11,6 +11,14 @@ import (
 	"github.com/aws/constructs-go/constructs/v10"
 )
 
+func (r *jsiiProxy_RuleGroupsNamespace) validateApplyCrossStackReferenceStrengthParameters(strength awscdk.ReferenceStrength) error {
+	if strength == "" {
+		return fmt.Errorf("parameter strength is required, but nil was provided")
+	}
+
+	return nil
+}
+
 func (r *jsiiProxy_RuleGroupsNamespace) validateApplyRemovalPolicyParameters(policy awscdk.RemovalPolicy) error {
 	if policy == "" {
 		return fmt.Errorf("parameter policy is required, but nil was provided")
@@ -42,7 +50,7 @@ func (r *jsiiProxy_RuleGroupsNamespace) validateGetResourceNameAttributeParamete
 	return nil
 }
 
-func validateRuleGroupsNamespace_FromRuleGroupsNamespaceAttributesParameters(scope constructs.Construct, id *string, attrs *RuleGroupsNamespaceAttributes) error {
+func validateRuleGroupsNamespace_FromRuleGroupsNamespaceArnParameters(scope constructs.Construct, id *string, ruleGroupsNamespaceArn *string) error {
 	if scope == nil {
 		return fmt.Errorf("parameter scope is required, but nil was provided")
 	}
@@ -51,11 +59,8 @@ func validateRuleGroupsNamespace_FromRuleGroupsNamespaceAttributesParameters(sco
 		return fmt.Errorf("parameter id is required, but nil was provided")
 	}
 
-	if attrs == nil {
-		return fmt.Errorf("parameter attrs is required, but nil was provided")
-	}
-	if err := _jsii_.ValidateStruct(attrs, func() string { return "parameter attrs" }); err != nil {
-		return err
+	if ruleGroupsNamespaceArn == nil {
+		return fmt.Errorf("parameter ruleGroupsNamespaceArn is required, but nil was provided")
 	}
 
 	return nil
@@ -80,14 +85,6 @@ func validateRuleGroupsNamespace_IsOwnedResourceParameters(construct constructs.
 func validateRuleGroupsNamespace_IsResourceParameters(construct constructs.IConstruct) error {
 	if construct == nil {
 		return fmt.Errorf("parameter construct is required, but nil was provided")
-	}
-
-	return nil
-}
-
-func validateRuleGroupsNamespace_IsRuleGroupsNamespaceParameters(x interface{}) error {
-	if x == nil {
-		return fmt.Errorf("parameter x is required, but nil was provided")
 	}
 
 	return nil

@@ -6,17 +6,15 @@ import (
 
 	"github.com/aws/aws-cdk-go/awscdk/v2"
 	"github.com/aws/aws-cdk-go/awscdk/v2/interfaces"
+	"github.com/aws/aws-cdk-go/awscdk/v2/interfaces/interfacesawsaps"
 	"github.com/aws/constructs-go/constructs/v10"
+	"github.com/robert-hanuschke/robhan-cdk-lib-aws-aps/robhancdklibawsaps/internal"
 )
 
-// The definition of a rule groups namespace in an Amazon Managed Service for Prometheus workspace.
-//
-// A rule groups namespace is associated with exactly one rules file. A workspace can have multiple
-// rule groups namespaces.
+// An Amazon Managed Service for Prometheus rule groups namespace.
 type RuleGroupsNamespace interface {
-	RuleGroupsNamespaceBase
-	// The rules file used in the namespace.
-	Data() *string
+	awscdk.Resource
+	IRuleGroupsNamespace
 	// The environment this resource belongs to.
 	//
 	// For resources that are created and managed in a Stack (those created by
@@ -27,8 +25,6 @@ type RuleGroupsNamespace interface {
 	// `Role.fromRoleArn()`, `Bucket.fromBucketName()`, etc.), they might be
 	// different than the stack they were imported into.
 	Env() *interfaces.ResourceEnvironment
-	// The name of the rule groups namespace.
-	Name() *string
 	// The tree node.
 	Node() constructs.Node
 	// Returns a string-encoded token that resolves to the physical name that should be passed to the CloudFormation resource.
@@ -39,12 +35,20 @@ type RuleGroupsNamespace interface {
 	// - a concrete name generated automatically during synthesis, in
 	//   cross-environment scenarios.
 	PhysicalName() *string
-	// The workspace to add the rule groups namespace.
+	// The ARN of the rule groups namespace.
 	RuleGroupsNamespaceArn() *string
+	// A reference to a RuleGroupsNamespace resource.
+	RuleGroupsNamespaceRef() *interfacesawsaps.RuleGroupsNamespaceReference
 	// The stack in which this resource is defined.
 	Stack() awscdk.Stack
-	// The workspace to add the rule groups namespace.
-	Workspace() IWorkspace
+	// Override the cross-stack reference strength for this resource.
+	//
+	// When set, any cross-stack reference to this resource will use the specified
+	// mechanism instead of the global default determined by the
+	// `@aws-cdk/core:defaultCrossStackReferences` context key. This is useful for
+	// selectively weakening specific references to avoid the "deadly embrace" problem
+	// without changing the app-wide default.
+	ApplyCrossStackReferenceStrength(strength awscdk.ReferenceStrength)
 	// Apply the given removal policy to this resource.
 	//
 	// The Removal Policy controls what happens to this resource when it stops
@@ -82,17 +86,8 @@ type RuleGroupsNamespace interface {
 
 // The jsii proxy struct for RuleGroupsNamespace
 type jsiiProxy_RuleGroupsNamespace struct {
-	jsiiProxy_RuleGroupsNamespaceBase
-}
-
-func (j *jsiiProxy_RuleGroupsNamespace) Data() *string {
-	var returns *string
-	_jsii_.Get(
-		j,
-		"data",
-		&returns,
-	)
-	return returns
+	internal.Type__awscdkResource
+	jsiiProxy_IRuleGroupsNamespace
 }
 
 func (j *jsiiProxy_RuleGroupsNamespace) Env() *interfaces.ResourceEnvironment {
@@ -100,16 +95,6 @@ func (j *jsiiProxy_RuleGroupsNamespace) Env() *interfaces.ResourceEnvironment {
 	_jsii_.Get(
 		j,
 		"env",
-		&returns,
-	)
-	return returns
-}
-
-func (j *jsiiProxy_RuleGroupsNamespace) Name() *string {
-	var returns *string
-	_jsii_.Get(
-		j,
-		"name",
 		&returns,
 	)
 	return returns
@@ -145,21 +130,21 @@ func (j *jsiiProxy_RuleGroupsNamespace) RuleGroupsNamespaceArn() *string {
 	return returns
 }
 
-func (j *jsiiProxy_RuleGroupsNamespace) Stack() awscdk.Stack {
-	var returns awscdk.Stack
+func (j *jsiiProxy_RuleGroupsNamespace) RuleGroupsNamespaceRef() *interfacesawsaps.RuleGroupsNamespaceReference {
+	var returns *interfacesawsaps.RuleGroupsNamespaceReference
 	_jsii_.Get(
 		j,
-		"stack",
+		"ruleGroupsNamespaceRef",
 		&returns,
 	)
 	return returns
 }
 
-func (j *jsiiProxy_RuleGroupsNamespace) Workspace() IWorkspace {
-	var returns IWorkspace
+func (j *jsiiProxy_RuleGroupsNamespace) Stack() awscdk.Stack {
+	var returns awscdk.Stack
 	_jsii_.Get(
 		j,
-		"workspace",
+		"stack",
 		&returns,
 	)
 	return returns
@@ -193,18 +178,19 @@ func NewRuleGroupsNamespace_Override(r RuleGroupsNamespace, scope constructs.Con
 	)
 }
 
-func RuleGroupsNamespace_FromRuleGroupsNamespaceAttributes(scope constructs.Construct, id *string, attrs *RuleGroupsNamespaceAttributes) IRuleGroupsNamespace {
+// Reference an existing rule groups namespace by ARN.
+func RuleGroupsNamespace_FromRuleGroupsNamespaceArn(scope constructs.Construct, id *string, ruleGroupsNamespaceArn *string) IRuleGroupsNamespace {
 	_init_.Initialize()
 
-	if err := validateRuleGroupsNamespace_FromRuleGroupsNamespaceAttributesParameters(scope, id, attrs); err != nil {
+	if err := validateRuleGroupsNamespace_FromRuleGroupsNamespaceArnParameters(scope, id, ruleGroupsNamespaceArn); err != nil {
 		panic(err)
 	}
 	var returns IRuleGroupsNamespace
 
 	_jsii_.StaticInvoke(
 		"@robhan-cdk-lib/aws_aps.RuleGroupsNamespace",
-		"fromRuleGroupsNamespaceAttributes",
-		[]interface{}{scope, id, attrs},
+		"fromRuleGroupsNamespaceArn",
+		[]interface{}{scope, id, ruleGroupsNamespaceArn},
 		&returns,
 	)
 
@@ -284,22 +270,15 @@ func RuleGroupsNamespace_IsResource(construct constructs.IConstruct) *bool {
 	return returns
 }
 
-func RuleGroupsNamespace_IsRuleGroupsNamespace(x interface{}) *bool {
-	_init_.Initialize()
-
-	if err := validateRuleGroupsNamespace_IsRuleGroupsNamespaceParameters(x); err != nil {
+func (r *jsiiProxy_RuleGroupsNamespace) ApplyCrossStackReferenceStrength(strength awscdk.ReferenceStrength) {
+	if err := r.validateApplyCrossStackReferenceStrengthParameters(strength); err != nil {
 		panic(err)
 	}
-	var returns *bool
-
-	_jsii_.StaticInvoke(
-		"@robhan-cdk-lib/aws_aps.RuleGroupsNamespace",
-		"isRuleGroupsNamespace",
-		[]interface{}{x},
-		&returns,
+	_jsii_.InvokeVoid(
+		r,
+		"applyCrossStackReferenceStrength",
+		[]interface{}{strength},
 	)
-
-	return returns
 }
 
 func (r *jsiiProxy_RuleGroupsNamespace) ApplyRemovalPolicy(policy awscdk.RemovalPolicy) {

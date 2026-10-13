@@ -6,20 +6,19 @@ import (
 
 	"github.com/aws/aws-cdk-go/awscdk/v2"
 	"github.com/aws/aws-cdk-go/awscdk/v2/interfaces"
+	"github.com/aws/aws-cdk-go/awscdk/v2/interfaces/interfacesawsaps"
 	"github.com/aws/constructs-go/constructs/v10"
+	"github.com/robert-hanuschke/robhan-cdk-lib-aws-aps/robhancdklibawsaps/internal"
 )
 
+// An Amazon Managed Service for Prometheus anomaly detector.
 type AnomalyDetector interface {
-	AnomalyDetectorBase
-	// The user-friendly name of the anomaly detector. 1 to 64 characters length.
-	//
-	// Minimum length of 1. Maximum length of 64.
-	// Pattern: [0-9A-Za-z][-.0-9A-Z_a-z]*
-	Alias() *string
-	// The Amazon Resource Name (ARN) of the anomaly detector.
+	awscdk.Resource
+	IAnomalyDetector
+	// The ARN of the anomaly detector.
 	AnomalyDetectorArn() *string
-	// The algorithm configuration of the anomaly detector.
-	Configuration() *AnomalyDetectorConfiguration
+	// A reference to a AnomalyDetector resource.
+	AnomalyDetectorRef() *interfacesawsaps.AnomalyDetectorReference
 	// The environment this resource belongs to.
 	//
 	// For resources that are created and managed in a Stack (those created by
@@ -30,19 +29,6 @@ type AnomalyDetector interface {
 	// `Role.fromRoleArn()`, `Bucket.fromBucketName()`, etc.), they might be
 	// different than the stack they were imported into.
 	Env() *interfaces.ResourceEnvironment
-	// The frequency, in seconds, at which the anomaly detector evaluates metrics.
-	//
-	// Minimum value of 30. Maximum value of 86400.
-	EvaluationIntervalInSeconds() *float64
-	// The Amazon Managed Service for Prometheus metric labels associated with the anomaly detector.
-	//
-	// Map Entries: Minimum number of 0 items. Maximum number of 140 items.
-	// Key Length Constraints: Minimum length of 1. Maximum length of 7168.
-	// Key Pattern: (?!__)[a-zA-Z_][a-zA-Z0-9_]*
-	// Value Length Constraints: Minimum length of 1. Maximum length of 7168.
-	Labels() *[]*Label
-	// The action taken when data is missing during evaluation.
-	MissingDataAction() *MissingDataAction
 	// The tree node.
 	Node() constructs.Node
 	// Returns a string-encoded token that resolves to the physical name that should be passed to the CloudFormation resource.
@@ -55,8 +41,14 @@ type AnomalyDetector interface {
 	PhysicalName() *string
 	// The stack in which this resource is defined.
 	Stack() awscdk.Stack
-	// An Amazon Managed Service for Prometheus workspace is a logical and isolated Prometheus server dedicated to ingesting, storing, and querying your Prometheus-compatible metrics.
-	Workspace() IWorkspace
+	// Override the cross-stack reference strength for this resource.
+	//
+	// When set, any cross-stack reference to this resource will use the specified
+	// mechanism instead of the global default determined by the
+	// `@aws-cdk/core:defaultCrossStackReferences` context key. This is useful for
+	// selectively weakening specific references to avoid the "deadly embrace" problem
+	// without changing the app-wide default.
+	ApplyCrossStackReferenceStrength(strength awscdk.ReferenceStrength)
 	// Apply the given removal policy to this resource.
 	//
 	// The Removal Policy controls what happens to this resource when it stops
@@ -94,17 +86,8 @@ type AnomalyDetector interface {
 
 // The jsii proxy struct for AnomalyDetector
 type jsiiProxy_AnomalyDetector struct {
-	jsiiProxy_AnomalyDetectorBase
-}
-
-func (j *jsiiProxy_AnomalyDetector) Alias() *string {
-	var returns *string
-	_jsii_.Get(
-		j,
-		"alias",
-		&returns,
-	)
-	return returns
+	internal.Type__awscdkResource
+	jsiiProxy_IAnomalyDetector
 }
 
 func (j *jsiiProxy_AnomalyDetector) AnomalyDetectorArn() *string {
@@ -117,11 +100,11 @@ func (j *jsiiProxy_AnomalyDetector) AnomalyDetectorArn() *string {
 	return returns
 }
 
-func (j *jsiiProxy_AnomalyDetector) Configuration() *AnomalyDetectorConfiguration {
-	var returns *AnomalyDetectorConfiguration
+func (j *jsiiProxy_AnomalyDetector) AnomalyDetectorRef() *interfacesawsaps.AnomalyDetectorReference {
+	var returns *interfacesawsaps.AnomalyDetectorReference
 	_jsii_.Get(
 		j,
-		"configuration",
+		"anomalyDetectorRef",
 		&returns,
 	)
 	return returns
@@ -132,36 +115,6 @@ func (j *jsiiProxy_AnomalyDetector) Env() *interfaces.ResourceEnvironment {
 	_jsii_.Get(
 		j,
 		"env",
-		&returns,
-	)
-	return returns
-}
-
-func (j *jsiiProxy_AnomalyDetector) EvaluationIntervalInSeconds() *float64 {
-	var returns *float64
-	_jsii_.Get(
-		j,
-		"evaluationIntervalInSeconds",
-		&returns,
-	)
-	return returns
-}
-
-func (j *jsiiProxy_AnomalyDetector) Labels() *[]*Label {
-	var returns *[]*Label
-	_jsii_.Get(
-		j,
-		"labels",
-		&returns,
-	)
-	return returns
-}
-
-func (j *jsiiProxy_AnomalyDetector) MissingDataAction() *MissingDataAction {
-	var returns *MissingDataAction
-	_jsii_.Get(
-		j,
-		"missingDataAction",
 		&returns,
 	)
 	return returns
@@ -197,16 +150,6 @@ func (j *jsiiProxy_AnomalyDetector) Stack() awscdk.Stack {
 	return returns
 }
 
-func (j *jsiiProxy_AnomalyDetector) Workspace() IWorkspace {
-	var returns IWorkspace
-	_jsii_.Get(
-		j,
-		"workspace",
-		&returns,
-	)
-	return returns
-}
-
 
 func NewAnomalyDetector(scope constructs.Construct, id *string, props *AnomalyDetectorProps) AnomalyDetector {
 	_init_.Initialize()
@@ -235,18 +178,19 @@ func NewAnomalyDetector_Override(a AnomalyDetector, scope constructs.Construct, 
 	)
 }
 
-func AnomalyDetector_IsAnomalyDetector(x interface{}) *bool {
+// Reference an existing anomaly detector by ARN.
+func AnomalyDetector_FromAnomalyDetectorArn(scope constructs.Construct, id *string, anomalyDetectorArn *string) IAnomalyDetector {
 	_init_.Initialize()
 
-	if err := validateAnomalyDetector_IsAnomalyDetectorParameters(x); err != nil {
+	if err := validateAnomalyDetector_FromAnomalyDetectorArnParameters(scope, id, anomalyDetectorArn); err != nil {
 		panic(err)
 	}
-	var returns *bool
+	var returns IAnomalyDetector
 
 	_jsii_.StaticInvoke(
 		"@robhan-cdk-lib/aws_aps.AnomalyDetector",
-		"isAnomalyDetector",
-		[]interface{}{x},
+		"fromAnomalyDetectorArn",
+		[]interface{}{scope, id, anomalyDetectorArn},
 		&returns,
 	)
 
@@ -324,6 +268,17 @@ func AnomalyDetector_IsResource(construct constructs.IConstruct) *bool {
 	)
 
 	return returns
+}
+
+func (a *jsiiProxy_AnomalyDetector) ApplyCrossStackReferenceStrength(strength awscdk.ReferenceStrength) {
+	if err := a.validateApplyCrossStackReferenceStrengthParameters(strength); err != nil {
+		panic(err)
+	}
+	_jsii_.InvokeVoid(
+		a,
+		"applyCrossStackReferenceStrength",
+		[]interface{}{strength},
+	)
 }
 
 func (a *jsiiProxy_AnomalyDetector) ApplyRemovalPolicy(policy awscdk.RemovalPolicy) {

@@ -1,29 +1,29 @@
 package robhancdklibawsaps
 
 
-// Configuration for the Random Cut Forest algorithm used for anomaly detection in time-series data.
+// Random Cut Forest configuration for anomaly detection.
 type RandomCutForestConfiguration struct {
-	// The Prometheus query used to retrieve the time-series data for anomaly detection.
+	// The PromQL query evaluated by the detector.
 	//
-	// 1 to 8192 characters length.
+	// The service requires the query to be wrapped by one of these aggregation operators: `avg`,
+	// `count`, `group`, `max`, `min`, `quantile`, `stddev`, `stdvar`, or `sum`. Query syntax and
+	// aggregation semantics are validated by Amazon Managed Service for Prometheus.
 	Query *string `field:"required" json:"query" yaml:"query"`
-	// Configuration for ignoring values that are near expected values from above during anomaly detection.
-	IgnoreNearExpectedFromAbove *IgnoreNearExpected `field:"optional" json:"ignoreNearExpectedFromAbove" yaml:"ignoreNearExpectedFromAbove"`
-	// Configuration for ignoring values that are near expected values from below during anomaly detection.
-	IgnoreNearExpectedFromBelow *IgnoreNearExpected `field:"optional" json:"ignoreNearExpectedFromBelow" yaml:"ignoreNearExpectedFromBelow"`
-	// The number of data points sampled from the input stream for the Random Cut Forest algorithm.
+	// Values above the expected value that should not be treated as anomalies.
+	// Default: - no upper tolerance.
 	//
-	// The default number is 256 consecutive data points.
+	IgnoreNearExpectedFromAbove IgnoreNearExpected `field:"optional" json:"ignoreNearExpectedFromAbove" yaml:"ignoreNearExpectedFromAbove"`
+	// Values below the expected value that should not be treated as anomalies.
+	// Default: - no lower tolerance.
 	//
-	// Minimum: 256
-	// Maximum: 1024.
+	IgnoreNearExpectedFromBelow IgnoreNearExpected `field:"optional" json:"ignoreNearExpectedFromBelow" yaml:"ignoreNearExpectedFromBelow"`
+	// The number of data points sampled by the algorithm.
+	// Default: 256.
+	//
 	SampleSize *float64 `field:"optional" json:"sampleSize" yaml:"sampleSize"`
-	// The number of consecutive data points used to create a shingle for the Random Cut Forest algorithm.
+	// The number of consecutive data points in each shingle.
+	// Default: 8.
 	//
-	// The default number is 8 consecutive data points.
-	//
-	// Minimum: 2
-	// Maximum: 1024.
 	ShingleSize *float64 `field:"optional" json:"shingleSize" yaml:"shingleSize"`
 }
 

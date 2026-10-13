@@ -5,12 +5,17 @@ import (
 	_init_ "github.com/robert-hanuschke/robhan-cdk-lib-aws-aps/robhancdklibawsaps/jsii"
 
 	"github.com/aws/aws-cdk-go/awscdk/v2"
+	"github.com/aws/aws-cdk-go/awscdk/v2/awsiam"
 	"github.com/aws/aws-cdk-go/awscdk/v2/interfaces"
+	"github.com/aws/aws-cdk-go/awscdk/v2/interfaces/interfacesawsaps"
 	"github.com/aws/constructs-go/constructs/v10"
+	"github.com/robert-hanuschke/robhan-cdk-lib-aws-aps/robhancdklibawsaps/internal"
 )
 
+// A resource-based policy attached to an Amazon Managed Service for Prometheus workspace.
 type ResourcePolicy interface {
-	ResourcePolicyBase
+	awscdk.Resource
+	IResourcePolicy
 	// The environment this resource belongs to.
 	//
 	// For resources that are created and managed in a Stack (those created by
@@ -31,12 +36,22 @@ type ResourcePolicy interface {
 	// - a concrete name generated automatically during synthesis, in
 	//   cross-environment scenarios.
 	PhysicalName() *string
-	// The JSON to use as the Resource-based Policy.
-	PolicyDocument() *string
+	// The policy document rendered by this resource.
+	PolicyDocument() awsiam.PolicyDocument
+	// A reference to a ResourcePolicy resource.
+	ResourcePolicyRef() *interfacesawsaps.ResourcePolicyReference
 	// The stack in which this resource is defined.
 	Stack() awscdk.Stack
-	// The workspace to attach the policy to.
-	Workspace() IWorkspace
+	// The ARN of the workspace protected by the policy.
+	WorkspaceArn() *string
+	// Override the cross-stack reference strength for this resource.
+	//
+	// When set, any cross-stack reference to this resource will use the specified
+	// mechanism instead of the global default determined by the
+	// `@aws-cdk/core:defaultCrossStackReferences` context key. This is useful for
+	// selectively weakening specific references to avoid the "deadly embrace" problem
+	// without changing the app-wide default.
+	ApplyCrossStackReferenceStrength(strength awscdk.ReferenceStrength)
 	// Apply the given removal policy to this resource.
 	//
 	// The Removal Policy controls what happens to this resource when it stops
@@ -74,7 +89,8 @@ type ResourcePolicy interface {
 
 // The jsii proxy struct for ResourcePolicy
 type jsiiProxy_ResourcePolicy struct {
-	jsiiProxy_ResourcePolicyBase
+	internal.Type__awscdkResource
+	jsiiProxy_IResourcePolicy
 }
 
 func (j *jsiiProxy_ResourcePolicy) Env() *interfaces.ResourceEnvironment {
@@ -107,11 +123,21 @@ func (j *jsiiProxy_ResourcePolicy) PhysicalName() *string {
 	return returns
 }
 
-func (j *jsiiProxy_ResourcePolicy) PolicyDocument() *string {
-	var returns *string
+func (j *jsiiProxy_ResourcePolicy) PolicyDocument() awsiam.PolicyDocument {
+	var returns awsiam.PolicyDocument
 	_jsii_.Get(
 		j,
 		"policyDocument",
+		&returns,
+	)
+	return returns
+}
+
+func (j *jsiiProxy_ResourcePolicy) ResourcePolicyRef() *interfacesawsaps.ResourcePolicyReference {
+	var returns *interfacesawsaps.ResourcePolicyReference
+	_jsii_.Get(
+		j,
+		"resourcePolicyRef",
 		&returns,
 	)
 	return returns
@@ -127,11 +153,11 @@ func (j *jsiiProxy_ResourcePolicy) Stack() awscdk.Stack {
 	return returns
 }
 
-func (j *jsiiProxy_ResourcePolicy) Workspace() IWorkspace {
-	var returns IWorkspace
+func (j *jsiiProxy_ResourcePolicy) WorkspaceArn() *string {
+	var returns *string
 	_jsii_.Get(
 		j,
-		"workspace",
+		"workspaceArn",
 		&returns,
 	)
 	return returns
@@ -163,6 +189,25 @@ func NewResourcePolicy_Override(r ResourcePolicy, scope constructs.Construct, id
 		[]interface{}{scope, id, props},
 		r,
 	)
+}
+
+// Reference an existing resource policy by the ARN of its workspace.
+func ResourcePolicy_FromWorkspaceArn(scope constructs.Construct, id *string, workspaceArn *string) IResourcePolicy {
+	_init_.Initialize()
+
+	if err := validateResourcePolicy_FromWorkspaceArnParameters(scope, id, workspaceArn); err != nil {
+		panic(err)
+	}
+	var returns IResourcePolicy
+
+	_jsii_.StaticInvoke(
+		"@robhan-cdk-lib/aws_aps.ResourcePolicy",
+		"fromWorkspaceArn",
+		[]interface{}{scope, id, workspaceArn},
+		&returns,
+	)
+
+	return returns
 }
 
 // Checks if `x` is a construct.
@@ -238,22 +283,15 @@ func ResourcePolicy_IsResource(construct constructs.IConstruct) *bool {
 	return returns
 }
 
-func ResourcePolicy_IsResourcePolicy(x interface{}) *bool {
-	_init_.Initialize()
-
-	if err := validateResourcePolicy_IsResourcePolicyParameters(x); err != nil {
+func (r *jsiiProxy_ResourcePolicy) ApplyCrossStackReferenceStrength(strength awscdk.ReferenceStrength) {
+	if err := r.validateApplyCrossStackReferenceStrengthParameters(strength); err != nil {
 		panic(err)
 	}
-	var returns *bool
-
-	_jsii_.StaticInvoke(
-		"@robhan-cdk-lib/aws_aps.ResourcePolicy",
-		"isResourcePolicy",
-		[]interface{}{x},
-		&returns,
+	_jsii_.InvokeVoid(
+		r,
+		"applyCrossStackReferenceStrength",
+		[]interface{}{strength},
 	)
-
-	return returns
 }
 
 func (r *jsiiProxy_ResourcePolicy) ApplyRemovalPolicy(policy awscdk.RemovalPolicy) {

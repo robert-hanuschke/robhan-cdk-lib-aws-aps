@@ -6,15 +6,15 @@ import (
 
 	"github.com/aws/aws-cdk-go/awscdk/v2"
 	"github.com/aws/aws-cdk-go/awscdk/v2/interfaces"
+	"github.com/aws/aws-cdk-go/awscdk/v2/interfaces/interfacesawsaps"
 	"github.com/aws/constructs-go/constructs/v10"
+	"github.com/robert-hanuschke/robhan-cdk-lib-aws-aps/robhancdklibawsaps/internal"
 )
 
+// An Amazon Managed Service for Prometheus scraper.
 type Scraper interface {
-	ScraperBase
-	// An optional user-assigned scraper alias.
-	Alias() *string
-	// The Amazon Managed Service for Prometheus workspace the scraper sends metrics to.
-	Destination() *Destination
+	awscdk.Resource
+	IScraper
 	// The environment this resource belongs to.
 	//
 	// For resources that are created and managed in a Stack (those created by
@@ -35,18 +35,27 @@ type Scraper interface {
 	// - a concrete name generated automatically during synthesis, in
 	//   cross-environment scenarios.
 	PhysicalName() *string
-	// The role configuration in an Amazon Managed Service for Prometheus scraper.
-	RoleConfiguration() *RoleConfiguration
-	// The configuration in use by the scraper.
-	ScrapeConfiguration() *ScrapeConfiguration
 	// The ARN of the scraper.
 	ScraperArn() *string
-	// The ID of the scraper.
+	// The unique ID of the scraper.
 	ScraperId() *string
-	// The Amazon EKS cluster from which the scraper collects metrics.
-	Source() *Source
+	// A reference to a Scraper resource.
+	ScraperRef() *interfacesawsaps.ScraperReference
+	// The ARN of the service-created scraper role.
+	//
+	// This attribute is available on scrapers created by this construct. It is intentionally not on
+	// `IScraper`, because the role ARN cannot be derived when referencing a scraper by ARN alone.
+	ScraperRoleArn() *string
 	// The stack in which this resource is defined.
 	Stack() awscdk.Stack
+	// Override the cross-stack reference strength for this resource.
+	//
+	// When set, any cross-stack reference to this resource will use the specified
+	// mechanism instead of the global default determined by the
+	// `@aws-cdk/core:defaultCrossStackReferences` context key. This is useful for
+	// selectively weakening specific references to avoid the "deadly embrace" problem
+	// without changing the app-wide default.
+	ApplyCrossStackReferenceStrength(strength awscdk.ReferenceStrength)
 	// Apply the given removal policy to this resource.
 	//
 	// The Removal Policy controls what happens to this resource when it stops
@@ -71,7 +80,7 @@ type Scraper interface {
 	// referenced across environments, it will be resolved to `this.physicalName`,
 	// which will be a concrete name.
 	GetResourceNameAttribute(nameAttr *string) *string
-	GetScraperId(scraperArn *string) *string
+	ScraperIdFromArn(scraperArn *string) *string
 	// Returns a string representation of this construct.
 	ToString() *string
 	// Applies one or more mixins to this construct.
@@ -85,27 +94,8 @@ type Scraper interface {
 
 // The jsii proxy struct for Scraper
 type jsiiProxy_Scraper struct {
-	jsiiProxy_ScraperBase
-}
-
-func (j *jsiiProxy_Scraper) Alias() *string {
-	var returns *string
-	_jsii_.Get(
-		j,
-		"alias",
-		&returns,
-	)
-	return returns
-}
-
-func (j *jsiiProxy_Scraper) Destination() *Destination {
-	var returns *Destination
-	_jsii_.Get(
-		j,
-		"destination",
-		&returns,
-	)
-	return returns
+	internal.Type__awscdkResource
+	jsiiProxy_IScraper
 }
 
 func (j *jsiiProxy_Scraper) Env() *interfaces.ResourceEnvironment {
@@ -138,26 +128,6 @@ func (j *jsiiProxy_Scraper) PhysicalName() *string {
 	return returns
 }
 
-func (j *jsiiProxy_Scraper) RoleConfiguration() *RoleConfiguration {
-	var returns *RoleConfiguration
-	_jsii_.Get(
-		j,
-		"roleConfiguration",
-		&returns,
-	)
-	return returns
-}
-
-func (j *jsiiProxy_Scraper) ScrapeConfiguration() *ScrapeConfiguration {
-	var returns *ScrapeConfiguration
-	_jsii_.Get(
-		j,
-		"scrapeConfiguration",
-		&returns,
-	)
-	return returns
-}
-
 func (j *jsiiProxy_Scraper) ScraperArn() *string {
 	var returns *string
 	_jsii_.Get(
@@ -178,11 +148,21 @@ func (j *jsiiProxy_Scraper) ScraperId() *string {
 	return returns
 }
 
-func (j *jsiiProxy_Scraper) Source() *Source {
-	var returns *Source
+func (j *jsiiProxy_Scraper) ScraperRef() *interfacesawsaps.ScraperReference {
+	var returns *interfacesawsaps.ScraperReference
 	_jsii_.Get(
 		j,
-		"source",
+		"scraperRef",
+		&returns,
+	)
+	return returns
+}
+
+func (j *jsiiProxy_Scraper) ScraperRoleArn() *string {
+	var returns *string
+	_jsii_.Get(
+		j,
+		"scraperRoleArn",
 		&returns,
 	)
 	return returns
@@ -226,18 +206,19 @@ func NewScraper_Override(s Scraper, scope constructs.Construct, id *string, prop
 	)
 }
 
-func Scraper_FromScraperAttributes(scope constructs.Construct, id *string, attrs *ScraperAttributes) IScraper {
+// Reference an existing scraper by ARN.
+func Scraper_FromScraperArn(scope constructs.Construct, id *string, scraperArn *string) IScraper {
 	_init_.Initialize()
 
-	if err := validateScraper_FromScraperAttributesParameters(scope, id, attrs); err != nil {
+	if err := validateScraper_FromScraperArnParameters(scope, id, scraperArn); err != nil {
 		panic(err)
 	}
 	var returns IScraper
 
 	_jsii_.StaticInvoke(
 		"@robhan-cdk-lib/aws_aps.Scraper",
-		"fromScraperAttributes",
-		[]interface{}{scope, id, attrs},
+		"fromScraperArn",
+		[]interface{}{scope, id, scraperArn},
 		&returns,
 	)
 
@@ -317,22 +298,15 @@ func Scraper_IsResource(construct constructs.IConstruct) *bool {
 	return returns
 }
 
-func Scraper_IsScraper(x interface{}) *bool {
-	_init_.Initialize()
-
-	if err := validateScraper_IsScraperParameters(x); err != nil {
+func (s *jsiiProxy_Scraper) ApplyCrossStackReferenceStrength(strength awscdk.ReferenceStrength) {
+	if err := s.validateApplyCrossStackReferenceStrengthParameters(strength); err != nil {
 		panic(err)
 	}
-	var returns *bool
-
-	_jsii_.StaticInvoke(
-		"@robhan-cdk-lib/aws_aps.Scraper",
-		"isScraper",
-		[]interface{}{x},
-		&returns,
+	_jsii_.InvokeVoid(
+		s,
+		"applyCrossStackReferenceStrength",
+		[]interface{}{strength},
 	)
-
-	return returns
 }
 
 func (s *jsiiProxy_Scraper) ApplyRemovalPolicy(policy awscdk.RemovalPolicy) {
@@ -391,15 +365,15 @@ func (s *jsiiProxy_Scraper) GetResourceNameAttribute(nameAttr *string) *string {
 	return returns
 }
 
-func (s *jsiiProxy_Scraper) GetScraperId(scraperArn *string) *string {
-	if err := s.validateGetScraperIdParameters(scraperArn); err != nil {
+func (s *jsiiProxy_Scraper) ScraperIdFromArn(scraperArn *string) *string {
+	if err := s.validateScraperIdFromArnParameters(scraperArn); err != nil {
 		panic(err)
 	}
 	var returns *string
 
 	_jsii_.Invoke(
 		s,
-		"getScraperId",
+		"scraperIdFromArn",
 		[]interface{}{scraperArn},
 		&returns,
 	)

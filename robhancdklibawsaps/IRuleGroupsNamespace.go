@@ -4,43 +4,52 @@ import (
 	_jsii_ "github.com/aws/jsii-runtime-go/runtime"
 
 	"github.com/aws/aws-cdk-go/awscdk/v2"
+	"github.com/aws/aws-cdk-go/awscdk/v2/interfaces"
+	"github.com/aws/aws-cdk-go/awscdk/v2/interfaces/interfacesawsaps"
+	"github.com/aws/constructs-go/constructs/v10"
 	"github.com/robert-hanuschke/robhan-cdk-lib-aws-aps/robhancdklibawsaps/internal"
 )
 
+// An Amazon Managed Service for Prometheus rule groups namespace.
 type IRuleGroupsNamespace interface {
 	awscdk.IResource
-	// The rules file used in the namespace.
-	Data() *string
-	// The name of the rule groups namespace.
-	Name() *string
+	interfacesawsaps.IRuleGroupsNamespaceRef
 	// The ARN of the rule groups namespace.
 	RuleGroupsNamespaceArn() *string
-	// The workspace to add the rule groups namespace.
-	Workspace() IWorkspace
 }
 
 // The jsii proxy for IRuleGroupsNamespace
 type jsiiProxy_IRuleGroupsNamespace struct {
 	internal.Type__awscdkIResource
+	internal.Type__interfacesawsapsIRuleGroupsNamespaceRef
 }
 
-func (j *jsiiProxy_IRuleGroupsNamespace) Data() *string {
-	var returns *string
-	_jsii_.Get(
-		j,
-		"data",
-		&returns,
+func (i *jsiiProxy_IRuleGroupsNamespace) ApplyRemovalPolicy(policy awscdk.RemovalPolicy) {
+	if err := i.validateApplyRemovalPolicyParameters(policy); err != nil {
+		panic(err)
+	}
+	_jsii_.InvokeVoid(
+		i,
+		"applyRemovalPolicy",
+		[]interface{}{policy},
 	)
-	return returns
 }
 
-func (j *jsiiProxy_IRuleGroupsNamespace) Name() *string {
-	var returns *string
-	_jsii_.Get(
-		j,
-		"name",
+func (i *jsiiProxy_IRuleGroupsNamespace) With(mixins ...constructs.IMixin) constructs.IConstruct {
+	args := []interface{}{}
+	for _, a := range mixins {
+		args = append(args, a)
+	}
+
+	var returns constructs.IConstruct
+
+	_jsii_.Invoke(
+		i,
+		"with",
+		args,
 		&returns,
 	)
+
 	return returns
 }
 
@@ -54,11 +63,41 @@ func (j *jsiiProxy_IRuleGroupsNamespace) RuleGroupsNamespaceArn() *string {
 	return returns
 }
 
-func (j *jsiiProxy_IRuleGroupsNamespace) Workspace() IWorkspace {
-	var returns IWorkspace
+func (j *jsiiProxy_IRuleGroupsNamespace) Env() *interfaces.ResourceEnvironment {
+	var returns *interfaces.ResourceEnvironment
 	_jsii_.Get(
 		j,
-		"workspace",
+		"env",
+		&returns,
+	)
+	return returns
+}
+
+func (j *jsiiProxy_IRuleGroupsNamespace) Node() constructs.Node {
+	var returns constructs.Node
+	_jsii_.Get(
+		j,
+		"node",
+		&returns,
+	)
+	return returns
+}
+
+func (j *jsiiProxy_IRuleGroupsNamespace) RuleGroupsNamespaceRef() *interfacesawsaps.RuleGroupsNamespaceReference {
+	var returns *interfacesawsaps.RuleGroupsNamespaceReference
+	_jsii_.Get(
+		j,
+		"ruleGroupsNamespaceRef",
+		&returns,
+	)
+	return returns
+}
+
+func (j *jsiiProxy_IRuleGroupsNamespace) Stack() awscdk.Stack {
+	var returns awscdk.Stack
+	_jsii_.Get(
+		j,
+		"stack",
 		&returns,
 	)
 	return returns

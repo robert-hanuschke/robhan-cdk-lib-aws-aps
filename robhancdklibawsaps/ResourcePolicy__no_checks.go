@@ -4,6 +4,10 @@ package robhancdklibawsaps
 
 // Building without runtime type checking enabled, so all the below just return nil
 
+func (r *jsiiProxy_ResourcePolicy) validateApplyCrossStackReferenceStrengthParameters(strength awscdk.ReferenceStrength) error {
+	return nil
+}
+
 func (r *jsiiProxy_ResourcePolicy) validateApplyRemovalPolicyParameters(policy awscdk.RemovalPolicy) error {
 	return nil
 }
@@ -16,6 +20,10 @@ func (r *jsiiProxy_ResourcePolicy) validateGetResourceNameAttributeParameters(na
 	return nil
 }
 
+func validateResourcePolicy_FromWorkspaceArnParameters(scope constructs.Construct, id *string, workspaceArn *string) error {
+	return nil
+}
+
 func validateResourcePolicy_IsConstructParameters(x interface{}) error {
 	return nil
 }
@@ -25,10 +33,6 @@ func validateResourcePolicy_IsOwnedResourceParameters(construct constructs.ICons
 }
 
 func validateResourcePolicy_IsResourceParameters(construct constructs.IConstruct) error {
-	return nil
-}
-
-func validateResourcePolicy_IsResourcePolicyParameters(x interface{}) error {
 	return nil
 }
 

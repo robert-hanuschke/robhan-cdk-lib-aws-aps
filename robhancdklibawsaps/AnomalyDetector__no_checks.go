@@ -4,6 +4,10 @@ package robhancdklibawsaps
 
 // Building without runtime type checking enabled, so all the below just return nil
 
+func (a *jsiiProxy_AnomalyDetector) validateApplyCrossStackReferenceStrengthParameters(strength awscdk.ReferenceStrength) error {
+	return nil
+}
+
 func (a *jsiiProxy_AnomalyDetector) validateApplyRemovalPolicyParameters(policy awscdk.RemovalPolicy) error {
 	return nil
 }
@@ -16,7 +20,7 @@ func (a *jsiiProxy_AnomalyDetector) validateGetResourceNameAttributeParameters(n
 	return nil
 }
 
-func validateAnomalyDetector_IsAnomalyDetectorParameters(x interface{}) error {
+func validateAnomalyDetector_FromAnomalyDetectorArnParameters(scope constructs.Construct, id *string, anomalyDetectorArn *string) error {
 	return nil
 }
 

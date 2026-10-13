@@ -1,28 +1,35 @@
 package robhancdklibawsaps
 
+import (
+	"github.com/aws/aws-cdk-go/awscdk/v2/interfaces/interfacesawsaps"
+)
 
-// Properties for creating an Amazon Managed Service for Prometheus Anomaly Detector.
+// Properties for an Amazon Managed Service for Prometheus anomaly detector.
 type AnomalyDetectorProps struct {
-	// The user-friendly name of the anomaly detector.
-	//
-	// 1 to 128 characters length.
+	// A user-friendly name for the detector.
 	Alias *string `field:"required" json:"alias" yaml:"alias"`
-	// The algorithm configuration of the anomaly detector.
+	// The algorithm configuration.
 	Configuration *AnomalyDetectorConfiguration `field:"required" json:"configuration" yaml:"configuration"`
-	// An Amazon Managed Service for Prometheus workspace is a logical and isolated Prometheus server dedicated to ingesting, storing, and querying your Prometheus-compatible metrics.
-	Workspace IWorkspace `field:"required" json:"workspace" yaml:"workspace"`
-	// The frequency, in seconds, at which the anomaly detector evaluates metrics.
+	// The workspace whose metrics are evaluated.
+	Workspace interfacesawsaps.IWorkspaceRef `field:"required" json:"workspace" yaml:"workspace"`
+	// The interval, in seconds, between evaluations.
 	//
-	// Minimum value of 30. Maximum value of 86400.
+	// Literal values must be integers from 30 through 86,400. Unresolved values are validated by
+	// the service after deployment.
+	// Default: 60.
+	//
 	EvaluationIntervalInSeconds *float64 `field:"optional" json:"evaluationIntervalInSeconds" yaml:"evaluationIntervalInSeconds"`
-	// The Amazon Managed Service for Prometheus metric labels associated with the anomaly detector.
+	// Metric labels associated with the detector.
+	// Default: - no labels.
 	//
-	// Map Entries: Minimum number of 0 items. Maximum number of 140 items.
-	// Key Length Constraints: Minimum length of 1. Maximum length of 7168.
-	// Key Pattern: (?!__)[a-zA-Z_][a-zA-Z0-9_]*
-	// Value Length Constraints: Minimum length of 1. Maximum length of 7168.
-	Labels *[]*Label `field:"optional" json:"labels" yaml:"labels"`
-	// The action taken when data is missing during evaluation.
-	MissingDataAction *MissingDataAction `field:"optional" json:"missingDataAction" yaml:"missingDataAction"`
+	Labels *[]*AnomalyDetectorLabel `field:"optional" json:"labels" yaml:"labels"`
+	// The action to take when evaluation data is missing.
+	// Default: - service default.
+	//
+	MissingDataAction MissingDataAction `field:"optional" json:"missingDataAction" yaml:"missingDataAction"`
+	// Tags to apply to the anomaly detector.
+	// Default: - no tags.
+	//
+	Tags *map[string]*string `field:"optional" json:"tags" yaml:"tags"`
 }
 

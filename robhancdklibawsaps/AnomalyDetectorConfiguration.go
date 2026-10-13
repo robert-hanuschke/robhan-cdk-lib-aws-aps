@@ -1,9 +1,9 @@
 package robhancdklibawsaps
 
 
-// The configuration for the anomaly detection algorithm.
+// Algorithm configuration for an anomaly detector.
 type AnomalyDetectorConfiguration struct {
-	// The Random Cut Forest algorithm configuration for anomaly detection.
+	// Random Cut Forest algorithm settings.
 	RandomCutForest *RandomCutForestConfiguration `field:"required" json:"randomCutForest" yaml:"randomCutForest"`
 }
 
